@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 const {Pool} = require('pg');
-const router = express.Router();
-const queries = require('./queries.js');
 
 app.use(function(req, res, next){
     res.setHeader('Access-Control-Allow-Origin','*')
@@ -116,6 +114,7 @@ app.put('/task/edit/:id', async(req, res) =>{
 app.post('/task/create', async(req, res) => {
     
     const {taskName, username} = req.body.data;
+
 
     try{
         const client = await pool.connect();

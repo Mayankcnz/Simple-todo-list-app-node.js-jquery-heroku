@@ -37,10 +37,9 @@ $(document).ready(function(e) {
                 $('#task').val('');
                 $('#Assign').val('');
 
-                console.log("haha");
                 $.ajax({
                     method: 'POST',
-                    url: "http://localhost:5000/task/create",
+                    url: "/task/create",
                     data: JSON.stringify({
                         data:{taskName: taskName, username: assign}
                        }),
@@ -70,7 +69,6 @@ $(document).ready(function(e) {
           //do something with the 'draggedItem' here...
           var droppedElemTxt = draggedItem.text();
          // var droppedElemId = draggedItem.attr('id');
-         console.log('Hola', droppedElemTxt);
          // always item gets dropped and this function is called, so needa make an ajax call from here
 
          // need to update the completed status using ajax
@@ -91,9 +89,6 @@ $(document).ready(function(e) {
         , start: function(e, ui) {
           draggedItem = ui.item;
           var item = $(this).parent('li');
-          console.log(item.context.id);
-          console.log(draggedItem.context);
-          console.log(draggedItem.context.value);
         }
       });
 
@@ -131,7 +126,6 @@ $(document).ready(function(e) {
                     $('#Assigned').val('');
                     $(this).dialog('close');
 
-                    console.log("AJAX CALL FOR EDIT INFO");
                     $.ajax({
                         method: 'PUT',
                         url: '/task/edit/'+id,
@@ -152,10 +146,7 @@ $(document).ready(function(e) {
         $('.sortlist').on('click','.delete',function() {
 
             var $itemToDelete = $(this).parent('li');
-            console.log($(this));
-            console.log($(this).context.value);
             var id= $(this).parent('li').attr('value');
-            console.log(id);
 
             $('#delete-modal').dialog('open');
 
