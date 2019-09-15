@@ -1,4 +1,4 @@
-INSERT INTO todos (username, todo) 
+INSERT INTO todos (username, todo, completed) 
 VALUES ('Kayak', 'Go to Supermarket', false),
-VALUES ('Kayak', 'Get an Haircut', false),
-VALUES ('Kayak', 'Do chores', true);
+ ('Kayak', 'Get an Haircut', false),
+ ('Kayak', 'Do chores', true);
