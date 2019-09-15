@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My To-Do List</title>
+<link href="../css/todo.css" rel="stylesheet">
+<link href="../css/jquery-ui.min.css" rel="stylesheet">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
+<script src="../js/todo.js"></script>
+
+</head>
+<body>
+<div class="container">
+<div id="to-do">
+<h1>My To-do List</h1>
+<button id="add-todo">Add item</button>
+
+<h2>To Be Done</h2>
+<ul id="todo-list" class="sortlist">
+    <% for(var i = 0; i < data.length; i++){ %>
+        <% if (!data[i].completed){ %>
+        <li value="<%=data[i].id%>" id="draggable"><span class="done"></span>
+            <span class="edit">+</span>
+            <span class="delete">x</span>
+            <span class="task"><%= data[i].todo%></span>
+            <span class="Assign"><%= data[i].username%></span></li>
+    <%}}%>
+</ul>
+</div>
+<div id="completed">
+<h2>Completed Tasks</h2>
+<ul id="completed-list" class="sortlist">
+    <% for(var i = 0; i < data.length; i++){ %>
+        <% if(data[i].completed){ %>
+        <li value="<%=data[i].id%>" id="draggable"><span class="done"></span>
+            <span class="edit">+</span>
+            <span class="delete">x</span>
+            <span class="task"><%= data[i].todo%></span>
+            <span class="Assign"><%= data[i].username %></span></li>
+    <%}}%>
+</ul>
+</div>
+
+<div id="edit-modal" title="Edit to-do">
+    <form>
+    <p>
+    <label for="TaskName">Task Name:</label>
+    <input type="text" name="TaskName" id="TaskName" value="">
+    <label for="Assigned">Username:</label>
+    <input type="text" name="Assigned" id="Assigned" value="" >
+    </p>
+    </form>
+</div>
+
+<div id="delete-modal" title="Confirm Deletion">
+    <form>
+    <h3>
+    <label>Do you want to confirm deletion?</label>
+    </h3>
+    </form>
+</div>
+
+<div id="new-todo" title="Add to-do item">
+    <form action="/newtodo" method="POST">
+    <p>
+    <label for="task">Task Name:</label>
+    <input type="text" name="task" id="task">
+    <label for="Assign">Username:</label>
+    <input type="text" name="Assign" id="Assign">
+    
+    </p>
+    </form>
+</div>
+
+
+
+</div>
+</body>
+</html>

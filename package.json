@@ -1,0 +1,24 @@
+{
+  "name": "nwen_304_project_300384272",
+  "version": "1.0.0",
+  "description": "Todo List with Restful service API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "npm"
+  ],
+  "author": "Mayank Chander",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-layout": "^0.1.0",
+    "heroku": "^7.29.0",
+    "pg": "^7.12.1"
+  }
+}
