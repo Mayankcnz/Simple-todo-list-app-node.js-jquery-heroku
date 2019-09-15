@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const {Pool} = require('pg');
 
 app.use(function(req, res, next){
@@ -47,28 +47,27 @@ app.get('/', async(req, res) => {
                 console.log(row);
             });
         }
-        res.render('index',{data: result.rows})
 
+        res.render('index',{data: result.rows})
         client.release();
 
        // res.render('pages/')
     }catch(err){
         console.error(err);
-        res.send("Error " + err);
+        res.send("Error 404 NOT FOUND" + err);
     }
-
+   
 });
 
 
 /** handles the case where taskname or username is changed */
 app.put('/:id', async(req, res)=>{
 
-
     const id = req.params.id;
-    const {task} = req.body;
+    const {completionStatus} = req.body;
 
     completed = true;
-    if (task === 'todo-list')
+    if (completionStatus=== 'todo-list')
         completed = false;
     try{
         const client = await pool.connect();
@@ -78,20 +77,21 @@ app.put('/:id', async(req, res)=>{
             return res.send('On Drag Data not updated');
         }
         client.release();
+
    
     }catch(err){
         console.error(err);
         res.send("Error " + err);
     }
-
-    res.redirect('/');
+    res.redirect(200,'/');
+    
 });
 
 
 app.put('/task/edit/:id', async(req, res) =>{
 
     const id = req.params.id;
-    const {taskName, username} = req.body.data;
+    const {taskName, username} = req.body;
 
     try{
         const client = await pool.connect();
@@ -107,14 +107,14 @@ app.put('/task/edit/:id', async(req, res) =>{
         res.send("Error "+err);
     }
 
-    res.redirect('/');
+    res.redirect(200,'/');
 })
 
 
 app.post('/task/create', async(req, res) => {
-    
-    const {taskName, username} = req.body.data;
 
+    
+    const {taskName, username} = req.body;
 
     try{
         const client = await pool.connect();
@@ -128,31 +128,33 @@ app.post('/task/create', async(req, res) => {
         console.error(err);
         res.send('Error '+err);
     }
-    res.redirect('/');
+    res.redirect(201,'/');
 
     
 });
 
-app.delete('/task/delete/', async(req, res) =>{
+app.delete('/:id', async(req, res) =>{
 
-    const {idNumber} = req.body;
+    const idNumber = req.params.id;
     
     try{
         const client = await pool.connect();
 
-        var result = client.query("DELETE FROM todos WHERE id = '"+parseInt(idNumber)+"'");
+        client.query("DELETE FROM todos WHERE id = '"+parseInt(idNumber)+"'", (err, result)=>{
+            client.release();
 
-        if(!result){
-            return res.send('DELETE UNSUCCESSFULL');
-        }
+            if(result.rowCount == 0){
+                res.send(400);
+            }else {
+                res.send(200);
+            }
+        });
 
-        client.release();
     }catch(err){
         console.error(err);
         res.send('Error '+err);
     }
 
-    res.redirect('/');
 
 
 })

@@ -41,7 +41,8 @@ $(document).ready(function(e) {
                     method: 'POST',
                     url: "/task/create",
                     data: JSON.stringify({
-                        data:{taskName: taskName, username: assign}
+                        taskName:taskName,
+                        username: assign,
                        }),
                        contentType: "application/json",
                        dataType: "json"
@@ -80,7 +81,7 @@ $(document).ready(function(e) {
              method: 'PUT',
              url: '/'+id,
              data: JSON.stringify({
-                task:{listType}
+                completionStatus:listType
                 }),
                 contentType: "application/json",
                 dataType: "json"
@@ -130,7 +131,8 @@ $(document).ready(function(e) {
                         method: 'PUT',
                         url: '/task/edit/'+id,
                         data: JSON.stringify({
-                           data:{taskName: taskName, username: assignedName},
+                           taskName: taskName, 
+                           username: assignedName,
                            }),
                            contentType: "application/json",
                            dataType: "json"
@@ -168,9 +170,9 @@ $(document).ready(function(e) {
         function deleteTask(id){
             $.ajax({
                 method: 'DELETE',
-                url: '/task/delete/',
+                url: '/'+id,
                 data: JSON.stringify({
-                   idNumber:id
+                   idNumber:''
                    }),
                    contentType: "application/json",
                    dataType: "json"
