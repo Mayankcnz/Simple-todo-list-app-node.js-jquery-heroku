@@ -1,5 +1,5 @@
 const express = require('express');
-//const dotenv = require('dotenv').config({path: __dirname + '/.env'});
+const dotenv = require('dotenv').config({path: __dirname + '/.env'});
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -16,7 +16,7 @@ app.use(function(req, res, next){
 // for connection information
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl:true,
+    //ssl:true,
 });
 
 app.set('views', path.join(__dirname, 'views'))
